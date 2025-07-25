@@ -12,7 +12,6 @@ typedef struct PointData
     int x;
     int y;
 
-
     PointData(int x_t = 0,int y_t = 0)
     {
         x = x_t;
@@ -44,6 +43,36 @@ typedef struct PointData
     
 }PointData;
 
+// Real world co-ordinates for real robot
+typedef struct RealPoint
+{
+    double x,y;
+    double theta;
+
+    RealPoint(const double& x_t,const double& y_t,const double& t_t)
+    {
+        x = x_t;
+        y = y_t;
+        theta = t_t;
+    }
+
+    RealPoint(const RealPoint& new_pt)
+    {
+        x = new_pt.x;
+        y = new_pt.y;
+        theta = new_pt.theta;
+    }
+
+    void copy(const RealPoint& new_pt)
+    {
+        x = new_pt.x;
+        y = new_pt.y;
+        theta = new_pt.theta;
+    }
+
+}RealPoint;
+
+// Hash operator for PointData storage
 namespace std {
     template<>
     struct hash<PointData> {

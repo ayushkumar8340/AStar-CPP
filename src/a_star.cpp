@@ -7,7 +7,7 @@ AStar::AStar()
 
 bool AStar::setupPlanner(const std::string& param_file)
 {
-    YAML::Node params YAML::LoadFile(param_file);
+    YAML::Node params = YAML::LoadFile(param_file);
 
     params_.inflation_radius = params["inflation_radius"].as<double>();
     params_.step_size = params["step_size"].as<double>();
@@ -18,7 +18,6 @@ bool AStar::setupPlanner(const std::string& param_file)
     params_.heu_scaling_factor = params["heuristics_scaling_factor"].as<double>();
     params_.vechile_radius = params["vechile_radius"].as<double>();
     
-
     return true;
 }
 
