@@ -2,6 +2,8 @@
 #define POST_PROCESSING_H
 
 #include "data_types.h"
+#include <yaml-cpp/yaml.h>
+#include "utils.h"
 
 class PostProcessing
 {
@@ -10,8 +12,8 @@ class PostProcessing
         bool process(const std::vector<PointData>& input);
         bool process(const std::vector<RealPoint>& input);
 
-        void getOutput(std::vector<RealPoint>& output);
-        void getOutput(std::vector<PointData>& output);
+        bool getOutput(std::vector<RealPoint>& output);
+        bool getOutput(std::vector<PointData>& output);
         
     private:
         std::vector<RealPoint> real_output_;
@@ -24,6 +26,8 @@ class PostProcessing
         double resolution_;
         double origin_pos_[3];
         double origin_orient_[4];
+
+        std::vector<RealPoint> performSmoothening_(const std::vector<RealPoint>& input);
 
 };  
 

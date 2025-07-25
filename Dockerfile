@@ -39,3 +39,5 @@ RUN cmake -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.1.1/modules -D WIT
 RUN make -j11
 RUN make install
 RUN export PYTHONPATH=$PYTHONPATH:'$PWD'/python_loader/
+
+RUN apt-get install -y libyaml-cpp-dev libeigen3-dev

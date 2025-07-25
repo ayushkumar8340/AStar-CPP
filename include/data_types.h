@@ -49,6 +49,11 @@ typedef struct RealPoint
     double x,y;
     double theta;
 
+    RealPoint()
+    {
+        
+    }
+
     RealPoint(const double& x_t,const double& y_t,const double& t_t)
     {
         x = x_t;
@@ -138,7 +143,7 @@ typedef struct
     double hue_scaling_factor;
     double vechile_radius;
 
-    double reset()
+    void reset()
     {
         inflation_radius = 0;
         step_size = 0;
@@ -150,5 +155,9 @@ typedef struct
     }
 
 }PlannerParams;
+
+#define IDx(w,i,j) (((w * j) + i))
+#define X_IDx(index,width) (index % width)
+#define Y_IDx(index,width) (index / width)
 
 #endif

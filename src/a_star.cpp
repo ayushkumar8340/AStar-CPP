@@ -1,4 +1,4 @@
-#include "astar.h"
+#include "a_star.h"
 
 AStar::AStar()
 {
@@ -15,7 +15,7 @@ bool AStar::setupPlanner(const std::string& param_file)
     params_.map = params["map"].as<std::string>();
     params_.diagonal_cost = params["diagonal_cost"].as<double>();
     params_.straight_cost = params["straight_cost"].as<double>();
-    params_.heu_scaling_factor = params["heuristics_scaling_factor"].as<double>();
+    params_.hue_scaling_factor = params["heuristics_scaling_factor"].as<double>();
     params_.vechile_radius = params["vechile_radius"].as<double>();
     
     return true;
@@ -26,7 +26,7 @@ bool AStar::loadMap(MapData& map)
     MapData map_loaded;
     map_loader_->loadMap(params_.map);
     MapData tmp_map = map_loader_->getRecentMap();
-    MathUtils::inflateMap(tmp_map,params_.inflation_radius,map_);
+    PlannerUtils::inflateMap(tmp_map,params_.inflation_radius,map_);
     map.copy(tmp_map);
 
     for(int i = 0; i < directions_.size(); i++)
@@ -87,7 +87,7 @@ bool AStar::plan(const PointData& start, const double& start_orient, const Point
             path_.clear();
             while(current_node)
             {
-                path_.push_back(PathPoint(current_node->x,current_node->y,0));
+                path_.push_back(RealPoint(current_node->x,current_node->y,0));
                 current_node = current_node->parent_node;
             }
 
@@ -152,7 +152,7 @@ void AStar::resetPlanner()
 
 double AStar::calculateHeuristic_(const PointData& p1, const PointData& p2)
 {
-    return std::round(params_.heu_scaling_factor * (std::sqrt(std::pow(p1.x - p2.x,2) + std::pow(p1.y - p2.y,2))));
+    return std::round(params_.hue_scaling_factor * (std::sqrt(std::pow(p1.x - p2.x,2) + std::pow(p1.y - p2.y,2))));
 }
 
 bool AStar::isPointValid_(const PointData& p)
@@ -187,7 +187,7 @@ bool AStar::isPointValid_(const PointData& p)
     return true;
 }
 
-bool AStar::getPlan(std::vector<PathPoint>& path)
+bool AStar::getPlan(std::vector<RealPoint>& path)
 {
     if(path_.size() == 0)
     {
