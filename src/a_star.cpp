@@ -21,13 +21,15 @@ bool AStar::setupPlanner(const std::string& param_file)
     return true;
 }
 
-bool AStar::loadMap(MapData& map)
+bool AStar::loadMap(MapData& map,cv::Mat& img)
 {
     MapData map_loaded;
     map_loader_->loadMap(params_.map);
     MapData tmp_map = map_loader_->getRecentMap();
     PlannerUtils::inflateMap(tmp_map,params_.inflation_radius,map_);
-    map.copy(tmp_map);
+    img = map_loader_->getMapImgFromMat(map_);
+    
+    map.copy(map_);
 
     for(int i = 0; i < directions_.size(); i++)
     {
@@ -104,9 +106,10 @@ bool AStar::plan(const PointData& start, const double& start_orient, const Point
             {
                 continue;
             }
-
+    
             PointData neighbour(nx,ny);
 
+            
             if(closed_map_.count(neighbour))
             {
                 continue;
@@ -115,7 +118,7 @@ bool AStar::plan(const PointData& start, const double& start_orient, const Point
             int g_cost = current_node->g + (((abs(dir.first) + abs(dir.second)) >= ((params_.step_size * 2) / map_.resolution)) ? params_.diagonal_cost : params_.straight_cost);
 
             std::shared_ptr<Node> neighbour_node;
-
+            
             if(!open_map_.count(neighbour))
             {
                 neighbour_node = std::make_unique<Node>(neighbour);
@@ -136,6 +139,8 @@ bool AStar::plan(const PointData& start, const double& start_orient, const Point
                     neighbour_node->parent_node = current_node;
                 }
             }
+
+            
         }
     }
 
@@ -201,11 +206,11 @@ bool AStar::getPlan(std::vector<RealPoint>& path)
 
 bool AStar::goalChecker_(PointData current_point)
 {
-    double p_x = goal_.x + params_.goal_trans_radius;
-    double n_x = goal_.x - params_.goal_trans_radius;
+    double p_x = goal_.x + params_.goal_trans_radius /  map_.resolution;
+    double n_x = goal_.x - params_.goal_trans_radius /  map_.resolution;
 
-    double p_y = goal_.y + params_.goal_trans_radius;
-    double n_y = goal_.y - params_.goal_trans_radius;
+    double p_y = goal_.y + params_.goal_trans_radius /  map_.resolution;
+    double n_y = goal_.y - params_.goal_trans_radius /  map_.resolution;
 
     if((current_point.x > (n_x) && current_point.x < (p_x)) && (current_point.y > (n_y) && current_point.y < (p_y)))
     {

@@ -19,7 +19,7 @@ class AStar
         ~AStar(){}
         bool setupPlanner(const std::string& param_file);
         PlannerParams getParsedParams(){return params_;}
-        bool loadMap(MapData& map);
+        bool loadMap(MapData& map,cv::Mat& img);
         bool setMap(const MapData& map);
         bool plan(const PointData& start, const double& start_orient, const PointData& target, const double& target_orient);
         bool getPlan(std::vector<RealPoint>& path);

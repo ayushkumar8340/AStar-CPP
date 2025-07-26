@@ -17,3 +17,9 @@ target_link_libraries(a_star PUBLIC custom_map planner_utils)
 add_library(post_processing SHARED src/post_processing.cpp)
 target_link_libraries(post_processing PUBLIC custom_map planner_utils)
 
+
+########################################################################################
+################## TEST SCRIPTS ########################################################
+
+add_executable(test_planner src/tests/test_planner.cpp)
+target_link_libraries(test_planner PUBLIC a_star post_processing)

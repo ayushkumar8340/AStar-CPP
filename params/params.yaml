@@ -1,9 +1,9 @@
 inflation_radius: 0.2
 step_size: 0.05
-goal_translation_radius: 6.0
-map: "saved"
+goal_translation_radius: 0.1
+map: "map"
 diagonal_cost: 34.0
 straight_cost: 20.0
-heuristic_scaling_factor: 1.0
-vechile_radius: 0.3
+heuristics_scaling_factor: 1.0
+vechile_radius: 0.01
 resolution_per_segment: 10
