@@ -89,7 +89,7 @@ bool AStar::plan(const PointData& start, const double& start_orient, const Point
             path_.clear();
             while(current_node)
             {
-                path_.push_back(RealPoint(current_node->x,current_node->y,0));
+                path_.push_back(PointData(current_node->x,current_node->y));
                 current_node = current_node->parent_node;
             }
 
@@ -192,7 +192,7 @@ bool AStar::isPointValid_(const PointData& p)
     return true;
 }
 
-bool AStar::getPlan(std::vector<RealPoint>& path)
+bool AStar::getPlan(std::vector<PointData>& path)
 {
     if(path_.size() == 0)
     {

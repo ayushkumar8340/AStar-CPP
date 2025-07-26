@@ -1,7 +1,7 @@
 inflation_radius: 0.2
 step_size: 0.05
 goal_translation_radius: 0.1
-map: "map"
+map: "../params/map"
 diagonal_cost: 34.0
 straight_cost: 20.0
 heuristics_scaling_factor: 1.0

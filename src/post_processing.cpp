@@ -73,7 +73,7 @@ bool PostProcessing::process(const std::vector<RealPoint>& input)
 std::vector<RealPoint> PostProcessing::performSmoothening_(const std::vector<RealPoint>& input)
 {
     std::vector<RealPoint> output;
-    int half = 0.02 * input.size();
+    int half = 0.1 * input.size();
     output.resize(input.size());
     for(int i = 1; i < input.size(); i++)
     {

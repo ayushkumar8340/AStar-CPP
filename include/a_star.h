@@ -22,7 +22,7 @@ class AStar
         bool loadMap(MapData& map,cv::Mat& img);
         bool setMap(const MapData& map);
         bool plan(const PointData& start, const double& start_orient, const PointData& target, const double& target_orient);
-        bool getPlan(std::vector<RealPoint>& path);
+        bool getPlan(std::vector<PointData>& path);
         void resetPlanner();
     private:
 
@@ -61,7 +61,7 @@ class AStar
 
         MapData map_;
 
-        std::vector<RealPoint> path_;
+        std::vector<PointData> path_;
 
         PointData goal_;
 
